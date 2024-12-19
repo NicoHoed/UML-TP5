@@ -1,4 +1,4 @@
-class Personne:
+class Dossier:
     def __init__(self, nom, prenom, date_naissance, adresse, telephone, email):
         self.nom = nom
         self.prenom = prenom
@@ -8,19 +8,27 @@ class Personne:
         self.email = email
 
     def __str__(self):
-        return f"{self.prenom} {self.nom}, Né(e) le {self.date_naissance}\nAdresse: {self.adresse}, Téléphone: {self.telephone}, Email: {self.email}"
+        return (f"{self.prenom} {self.nom}, Né(e) le {self.date_naissance}\n"
+                f"Adresse: {self.adresse}, Téléphone: {self.telephone}, Email: {self.email}")
+
+class Personne:
+    def __init__(self, dossier):
+        self.dossier = dossier
+
+    def __str__(self):
+        return str(self.dossier)
 
 class Professeur(Personne):
-    def __init__(self, nom, prenom, date_naissance, adresse, telephone, email, matiere):
-        super().__init__(nom, prenom, date_naissance, adresse, telephone, email)
+    def __init__(self, dossier, matiere):
+        super().__init__(dossier)
         self.matiere = matiere
 
     def __str__(self):
         return f"Professeur de {self.matiere} : {super().__str__()}"
 
 class Eleve(Personne):
-    def __init__(self, nom, prenom, date_naissance, adresse, telephone, email, niveau):
-        super().__init__(nom, prenom, date_naissance, adresse, telephone, email)
+    def __init__(self, dossier, niveau):
+        super().__init__(dossier)
         self.niveau = niveau
 
     def __str__(self):

@@ -24,18 +24,27 @@ class FichierJoint:
         self.nom = nom
         self.contenu = contenu
 
+    def __str__(self):
+        return f"Fichier Joint: {self.nom}"
+
 
 class Email:
     def __init__(
             self,
-            expediteur: AdresseEmail,
-            destinataire: AdresseEmail,
-            texte: TexteEmail,
+            expediteur: str,
+            destinataire: str,
+            titre: Optional[str] = None,
+            corps: Optional[str] = None,
             fichiers: Optional[List[FichierJoint]] = None
     ):
-        self.expediteur = expediteur
-        self.destinataire = destinataire
-        self.texte = texte
+        # Composition
+        self.expediteur = AdresseEmail(expediteur)
+        self.destinataire = AdresseEmail(destinataire)
+
+        # Composition
+        self.texte = TexteEmail(titre, corps)
+
+        # Composition
         self.fichiers = fichiers if fichiers is not None else []
 
     def envoyer(self):

@@ -1,5 +1,4 @@
-from typing import List, Optional
-import re
+from typing import List
 
 
 class AdresseEmail:
@@ -14,7 +13,8 @@ class AdresseEmail:
 
 
 class TexteEmail:
-    def __init__(self, titre: Optional[str] = None, corps: Optional[str] = None):
+    def __init__(self, titre: str, corps: str):
+        # Maintenant, titre et corps sont obligatoires
         self.titre = titre
         self.corps = corps
 
@@ -33,9 +33,9 @@ class Email:
             self,
             expediteur: str,
             destinataire: str,
-            titre: Optional[str] = None,
-            corps: Optional[str] = None,
-            fichiers: Optional[List[FichierJoint]] = None
+            titre: str,
+            corps: str,
+            fichiers: List[FichierJoint] = None  # Fichiers joints sont optionnels
     ):
         # Composition
         self.expediteur = AdresseEmail(expediteur)
@@ -44,14 +44,13 @@ class Email:
         # Composition
         self.texte = TexteEmail(titre, corps)
 
-        # Composition
+        # Composition (Les fichiers sont optionnels)
         self.fichiers = fichiers if fichiers is not None else []
 
     def envoyer(self):
         print(f"Envoi de l'email de {self.expediteur.adresse} à {self.destinataire.adresse}")
-        if self.texte.titre:
-            print(f"Titre: {self.texte.titre}")
-        if self.texte.corps:
-            print(f"Corps: {self.texte.corps}")
+        print(f"Titre: {self.texte.titre}")
+        print(f"Corps: {self.texte.corps}")
         if self.fichiers:
             print(f"Fichiers joints: {[f.nom for f in self.fichiers]}")
+

@@ -35,19 +35,26 @@ class Habitat:
 
 
 class Animal:
-    def __init__(self, tete, corps, membres, habitat):
+    def __init__(self, tete, corps, membres, habitat=None):
+
+        # Composition
         if not isinstance(tete, Tete):
             raise ValueError("tete doit être une instance de la classe Tete")
+        self.tete = tete
+
+        # Composition
         if not isinstance(corps, Corps):
             raise ValueError("corps doit être une instance de la classe Corps")
-        if not all(isinstance(membre, Membres) for membre in membres):
-            raise ValueError("membres doit être une liste d'instances de la classe Membres")
-        if not isinstance(habitat, Habitat):
-            raise ValueError("habitat doit être une instance de la classe Habitat")
-
-        self.tete = tete
         self.corps = corps
+
+        # Composition
+        if not isinstance(membres, list) or not all(isinstance(membre, Membres) for membre in membres):
+            raise ValueError("membres doit être une liste d'instances de la classe Membres")
         self.membres = membres
+
+        # Association
+        if habitat is not None and not isinstance(habitat, Habitat):
+            raise ValueError("habitat doit être une instance de la classe Habitat ou None")
         self.habitat = habitat
 
     def __str__(self):
@@ -57,7 +64,7 @@ class Animal:
 
 
 class Herbivore(Animal):
-    def __init__(self, tete, corps, membres, habitat, alimentation="herbivore"):
+    def __init__(self, tete, corps, membres, habitat=None, alimentation="herbivore"):
         super().__init__(tete, corps, membres, habitat)
         self.alimentation = alimentation
 
@@ -66,7 +73,7 @@ class Herbivore(Animal):
 
 
 class Carnivore(Animal):
-    def __init__(self, tete, corps, membres, habitat, alimentation="carnivore"):
+    def __init__(self, tete, corps, membres, habitat=None, alimentation="carnivore"):
         super().__init__(tete, corps, membres, habitat)
         self.alimentation = alimentation
 
